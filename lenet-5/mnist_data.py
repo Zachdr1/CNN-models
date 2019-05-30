@@ -10,7 +10,7 @@ import numpy as np
 import random
 from lenet5 import Net
 
-def loaddata():
+def load_data():
     composed_transforms = transforms.Compose([transforms.Resize(32), transforms.ToTensor()])
     transformed_dataset = dset.MNIST(root='mnist',transform=composed_transforms,\
                                     train=True, download=True)
@@ -31,4 +31,4 @@ def inspect_images(dataloader):
     plt.show()
 
 if __name__ == '__main__':
-    loaddata()
+    load_data()
