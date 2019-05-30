@@ -10,12 +10,12 @@ import numpy as np
 import random
 from lenet5 import Net
 
-def run():
+def loaddata():
     composed_transforms = transforms.Compose([transforms.Resize(32), transforms.ToTensor()])
     transformed_dataset = dset.MNIST(root='mnist',transform=composed_transforms,\
                                     train=True, download=True)
     dataloader = DataLoader(transformed_dataset, batch_size=64, shuffle=True, num_workers=4)
-    inspect_images(dataloader)
+    return dataloader
 
 def inspect_images(dataloader):
     # Look at first 5 images of the first (shuffled) batch
@@ -31,4 +31,4 @@ def inspect_images(dataloader):
     plt.show()
 
 if __name__ == '__main__':
-    run()
+    loaddata()
