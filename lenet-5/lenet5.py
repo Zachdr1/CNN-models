@@ -3,14 +3,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Net(nn.Module):
-
+    ''' Implementation of LeNet-5 for 2 channel 32x32 images. '''
     def __init__(self):
         super(Net, self).__init__()
         # Input: 32x32 image
         # Layers: 3 5x5 convolutions,
         #         2 2x2, stride =2, max pooling 
         #         2 FC layers
-        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.conv1 = nn.Conv2d(2, 6, 5)
         self.pool = nn.MaxPool2d(2,2)
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16 * 5 * 5, 120)
