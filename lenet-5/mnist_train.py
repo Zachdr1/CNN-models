@@ -9,10 +9,12 @@ def main():
     net = Net().to(device)
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(net.parameters(), lr=.001, momentum=.9)
-    trainloader = load_data()
+    # optimizer = optim.SGD(net.parameters(), lr=.001, momentum=.9)
+    optimizer = optim.Adam(net.parameters())
+    trainloader, _ = load_data()
     dataiter = iter(trainloader)
 
+    # Train
     for epoch in range(20):
         running_loss = 0.0
         for i, data in enumerate(trainloader,0):
@@ -27,9 +29,12 @@ def main():
 
             # print metrics
             running_loss += loss.item()
-            print(f'Epoch: {epoch}\t Loss: {running_loss}')
-            running_loss = 0.0
-    print('Finished Training')
+            if i % 938 == 937:
+                print(f'Epoch: {epoch}\t Loss: {running_loss/938}')
+                running_loss = 0.0
+    print('Finished Training\n \n')
+    filename = input('Enter file name for model: ')
+    torch.save(net, filename)
 
 if __name__ == '__main__':
     main()
