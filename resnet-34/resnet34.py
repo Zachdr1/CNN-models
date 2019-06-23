@@ -47,19 +47,19 @@ def resnet34(input_shape, initial_downsample=True, num_classes=1):
     x = basic_block(x, (3, 3), 64)
     x = basic_block(x, (3, 3), 64)
 
-    x = basic_block(x, (3, 3), 128, stride=2, residual=False) # Downsample block (no residual)
+    x = basic_block(x, (3, 3), 128, stride=2, residual=False)  # Downsample block (no residual)
     x = basic_block(x, (3, 3), 128)
     x = basic_block(x, (3, 3), 128)
     x = basic_block(x, (3, 3), 128)
 
-    x = basic_block(x, (3, 3), 256, stride=2, residual=False) # Downsample block (no residual)
+    x = basic_block(x, (3, 3), 256, stride=2, residual=False)  # Downsample block (no residual)
     x = basic_block(x, (3, 3), 256)
     x = basic_block(x, (3, 3), 256)
     x = basic_block(x, (3, 3), 256)
     x = basic_block(x, (3, 3), 256)
     x = basic_block(x, (3, 3), 256)
 
-    x = basic_block(x, (3, 3), 512, stride=2, residual=False) # Downsample block (no residual)
+    x = basic_block(x, (3, 3), 512, stride=2, residual=False)  # Downsample block (no residual)
     x = basic_block(x, (3, 3), 512)
     x = basic_block(x, (3, 3), 512)
 
@@ -68,9 +68,9 @@ def resnet34(input_shape, initial_downsample=True, num_classes=1):
     outputs = tf.keras.layers.Dense(num_classes, activation='softmax')(x)
 
     resnet = tf.keras.Model(inputs, outputs)
-    resnet.summary()
     return resnet
 
 
 if __name__ == '__main__':
-    model = resnet34(input_shape=(32, 32, 3), initial_downsample=False, num_classes=200)
+    model = resnet34(input_shape=(32, 32, 3), initial_downsample=False, 
+                     num_classes=200)

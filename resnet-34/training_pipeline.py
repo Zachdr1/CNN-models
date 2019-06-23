@@ -10,18 +10,18 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from resnet34 import resnet34
 
-EPOCHS = 5
+EPOCHS = 10
 NUM_CLASSES = 10
-BATCH_SIZE = 512
+BATCH_SIZE = 256
 NUM_CORES = 6
 IMAGE_SHAPE = (28, 28, 1)
-TRANSFORMED_IMAGE_SHAPE = (32, 32, 1)
+TRANSFORMED_IMAGE_SHAPE = (28, 28, 1)
 
 
 def training_pipeline():
     ''' Main function for the pipeline '''
 
-    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
+    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
     training_set = data_gen(x_train, y_train, is_training=True,
                             batch_size=BATCH_SIZE)
     testing_set = data_gen(x_test, y_test, is_training=False,
@@ -37,7 +37,8 @@ def training_pipeline():
         validation_data=testing_set.make_one_shot_iterator(),
         validation_steps=len(x_test) // BATCH_SIZE)
 
-    model.save('cifar100_1.h5')
+    filename = input('Enter filename to save model to (.h5): ')
+    model.save(filename)
     visualize_training(history)
 
 
@@ -49,7 +50,7 @@ def data_gen(images, labels, is_training, batch_size=128):
     def preprocess_fn(image, label):
         ''' Transform images '''
         x = tf.reshape(tf.cast(image, tf.float32), IMAGE_SHAPE)
-        x = tf.image.resize_images(x, (TRANSFORMED_IMAGE_SHAPE[0], 
+        x = tf.image.resize_images(x, (TRANSFORMED_IMAGE_SHAPE[0],
                                        TRANSFORMED_IMAGE_SHAPE[1]))
         y = tf.one_hot(tf.cast(label, tf.uint8), NUM_CLASSES)
         return x, y
