@@ -1,4 +1,4 @@
-# CNN-models
+# CNNs
 
 ## [ResNet-34](/resnet-34)
 ResNet-34 implementation using Tensorflow + Keras. <br/>
