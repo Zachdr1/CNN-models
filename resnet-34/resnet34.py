@@ -34,14 +34,14 @@ def resnet34(input_shape, initial_downsample=True, num_classes=1):
 
     inputs = tf.keras.Input(shape=input_shape)
     if initial_downsample:
-        x = tf.keras.layers.Conv2D(filters=64, kernel_size=(7, 7), strides=2,
+        x = tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3), strides=2,
                                    padding='same', use_bias=False)(inputs)
     else:
-        x = tf.keras.layers.Conv2D(filters=64, kernel_size=(7, 7),
+        x = tf.keras.layers.Conv2D(filters=64, kernel_size=(3, 3),
                                    padding='same', use_bias=False)(inputs)
     x = tf.keras.layers.BatchNormalization()(x)
     x = tf.keras.layers.Activation('relu')(x)
-    x = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=2)(x)
+    # x = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=2)(x)
 
     x = basic_block(x, (3, 3), 64)
     x = basic_block(x, (3, 3), 64)

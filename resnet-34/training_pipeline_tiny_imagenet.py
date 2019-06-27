@@ -9,6 +9,7 @@ Zach D
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from resnet34 import resnet34
+from pathlib import Path
 
 EPOCHS = 10
 NUM_CLASSES = 10
@@ -21,7 +22,7 @@ TRANSFORMED_IMAGE_SHAPE = (28, 28, 1)
 def training_pipeline():
     ''' Main function for the pipeline '''
 
-    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
+    (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
     training_set = data_gen(x_train, y_train, is_training=True,
                             batch_size=BATCH_SIZE)
     testing_set = data_gen(x_test, y_test, is_training=False,
@@ -41,6 +42,12 @@ def training_pipeline():
     model.save(filename)
     visualize_training(history)
 
+
+def load_data():
+    p = Path('E:/data/tiny-imagenet-200/tiny-imagenet-200')
+    for item in p.iterdir():
+        print(item)
+    
 
 def data_gen(images, labels, is_training, batch_size=128):
     '''
@@ -80,4 +87,5 @@ def visualize_training(history):
 
 
 if __name__ == '__main__':
-    training_pipeline()
+    # training_pipeline()
+    load_data()
